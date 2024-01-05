@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +42,8 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-react-app": "^7.0.1",
     "react-app-rewired": "^2.2.1"
   }
 }

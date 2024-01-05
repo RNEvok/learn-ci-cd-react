@@ -1,0 +1,32 @@
+name: Deploy React App
+on: push
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install node modules
+        run: yarn
+      - name: Test app
+        run: yarn run test
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install node modules
+        run: yarn
+      - name: Lint app
+        run: yarn run lint
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install node modules
+        run: yarn
+      - name: Build app
+        run: yarn run build
+      - name: Deploy
+        run: echo Deploying...
