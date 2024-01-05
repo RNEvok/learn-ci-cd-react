@@ -6,11 +6,6 @@ jobs:
     steps:
       - name: Get repository code
         uses: actions/checkout@v4
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install node modules
         run: yarn
       - name: Test app
@@ -21,26 +16,26 @@ jobs:
     steps:
       - name: Get repository code
         uses: actions/checkout@v4
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: node-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install node modules
+        run: yarn
       - name: Lint app
         run: yarn run lint
   Build:
-    runs-on: ubuntu-latest
     needs: Lint
+    strategy: 
+      matrix:
+        node-version: [16, 18]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Get repository code
         uses: actions/checkout@v4
-      - name: Cache node modules
-        uses: actions/cache@v3
+      - name: Setup Node version
+        uses: actions/setup-node@v3
         with:
-          path: |
-            **/node_modules
-            **/.eslintcache
-          key: node-modules-new-${{ hashFiles('**/yarn.lock') }}
+          node-version: ${{ matrix.node-version }}
+      - name: Install node modules
+        run: yarn
       - name: Build app
         run: yarn run build
       - name: Deploy
