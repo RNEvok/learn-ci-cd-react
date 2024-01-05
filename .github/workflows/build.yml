@@ -1,0 +1,17 @@
+name: Build React App
+on: [push, workflow_dispatch]
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install node modules
+        run: yarn
+      - name: Build project
+        run: yarn run build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: build
+          name: my-react-app-build
