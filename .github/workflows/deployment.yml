@@ -37,7 +37,9 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: |
+            **/node_modules
+            **/.eslintcache
           key: node-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Build app
         run: yarn run build
