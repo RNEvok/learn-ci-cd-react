@@ -26,8 +26,6 @@ jobs:
         with:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Install node modules
-        run: yarn
       - name: Lint app
         run: yarn run lint
   Build:
@@ -41,8 +39,6 @@ jobs:
         with:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Install node modules
-        run: yarn
       - name: Build app
         run: yarn run build
       - name: Deploy
