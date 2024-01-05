@@ -40,7 +40,7 @@ jobs:
           path: |
             **/node_modules
             **/.eslintcache
-          key: node-modules-${{ hashFiles('**/yarn.lock') }}
+          key: node-modules-new-${{ hashFiles('**/yarn.lock') }}
       - name: Build app
         run: yarn run build
       - name: Deploy
