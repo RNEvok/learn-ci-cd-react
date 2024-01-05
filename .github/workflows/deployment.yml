@@ -4,6 +4,8 @@ on:
     branches:
       - 'main'
       # - '**.js'
+    paths-ignore:
+      - './github/workflows/*' # не запускать воркфлоу при обновлении самих воркфлоу
 jobs:
   Deploy:
     runs-on: ubuntu-latest
