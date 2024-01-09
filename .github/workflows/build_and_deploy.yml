@@ -19,9 +19,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Install node modules
         run: yarn
+      - name: Test app
+        run: yarn run test
       - name: Make build
         run: yarn build
       - name: Deploy to server (rsync over SSH)
         run: rsync -r ./build/ root@213.226.126.241:/var/www/html/
-      # - name: Deploy to server (rsync over SSH)
-      #   run: rsync -r ./src/ root@213.226.126.241:/var/www/html/
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: build
+          name: my-react-app-build
+      - name: Get build folder
+        uses: actions/download-artifact@v3
+        with:
+          name: my-react-app-build
