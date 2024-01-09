@@ -1,0 +1,27 @@
+name: Build react app and deploy to server
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    # paths-ignore:
+    #   - '.github/workflows/*' # не запускать воркфлоу при обновлении самих воркфлоу
+jobs:
+  Build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_SSH_PRIVATE_KEY }} >> ~/.ssh/known_hosts
+      - name: Get repository code
+        uses: actions/checkout@v4
+      - name: Install node modules
+        run: yarn
+      - name: Make build
+        run: yarn build
+      - name: Deploy to server
+        run: rsync ./build/ root@213.226.126.241:/var/www/html/
