@@ -14,11 +14,11 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-          # known_hosts: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-          known_hosts: unnecessary
+          known_hosts: ${{ secrets.SERVER_KNOWN_HOSTS }}
+          # known_hosts: unnecessary
       
-      - name: Adding Known Hosts
-        run: ssh-keyscan -p 22 -H 213.226.126.241 >> ~/.ssh/known_hosts
+      # - name: Adding Known Hosts
+      #   run: ssh-keyscan -p 22 -H 213.226.126.241 >> ~/.ssh/known_hosts
       - name: Get repository code
         uses: actions/checkout@v4
       # - name: Install node modules
