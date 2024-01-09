@@ -23,14 +23,14 @@ jobs:
         run: yarn run test
       - name: Make build
         run: yarn build
-      - name: Deploy to server (rsync over SSH)
-        run: rsync -r ./build/ root@213.226.126.241:/var/www/html/
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           path: build
           name: my-react-app-build
-      - name: Get build folder
+      - name: Get build archive
         uses: actions/download-artifact@v3
         with:
           name: my-react-app-build
+      - name: Deploy to server (rsync over SSH)
+        run: rsync -r ./build/ root@213.226.126.241:/var/www/html/
